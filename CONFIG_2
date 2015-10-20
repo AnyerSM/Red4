@@ -21,6 +21,12 @@ INTERFACE GI 0/0
 NO SHUTDOWN
 IP ADDRESS 192.168.10.1 255.255.255.0
 EXIT
+INTERFACE SE 0/0/0
+ENCAPSULATION PPP
+PPP AUTHENTICATION CHAP
+EXIT
+USERNAME R_2 PASSWORD CISCO
+EXIT
 ROUTER OSPF 1
 NETWORK 10.1.1.0 0.0.0.3 AREA 0
 NETWORK 192.168.10.0 0.0.0.255 AREA 0
@@ -52,6 +58,18 @@ NO SHUTDOWN
 NO CLOCK RATE
 IP ADDRESS 10.1.1.2 255.255.255.252
 EXIT
+INTERFACE SE 0/0/1
+ENCAPSULATION PPP
+PPP AUTHENTICATION CHAP
+EXIT
+USERNAME R_1 PASSWORD CISCO
+EXIT
+INTERFACE SE 0/0/0
+ENCAPSULATION PPP
+PPP AUTHENTICATION CHAP
+EXIT
+USERNAME R_3 PASSWORD CISCO
+EXIT
 ROUTER OSPF 1
 NETWORK 10.1.1.0 0.0.0.3 AREA 0
 NETWORK 10.2.2.0 0.0.0.3 AREA 0
@@ -82,6 +100,12 @@ INTERFACE GI 0/0
 NO SHUTDOWN
 IP ADDRESS 192.168.30.1 255.255.255.0
 EXIT
+INTERFACE SE 0/0/1
+ENCAPSULATION PPP
+PPP AUTHENTICATION CHAP
+EXIT
+USERNAME R_2 PASSWORD CISCO
+EXIT
 ROUTER OSPF 1
 NETWORK 10.2.2.0 0.0.0.3 AREA 0
 NETWORK 192.168.30.0 0.0.0.255 AREA 0
@@ -90,9 +114,67 @@ END
 COPY RUNNING-CONFIG STARTUP-CONFIG
 
 #############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
+ROUTER_1 PPP
 
+R_1#CONFIGURE TERMINAL
+R_1(config)#INTERFACE SE 0/0/0
+R_1(config-if)#ENCAPSULATION PPP
+R_1(config-if)#PPP AUTHENTICATION CHAP
+R_1(config-if)#EXIT
+R_1(config)#USERNAME R_2 PASSWORD CISCO
+R_1(config)#EXIT
+################################################
+ROUTER_1 PPP
 
+CONFIGURE TERMINAL
+INTERFACE SE 0/0/0
+ENCAPSULATION PPP
+PPP AUTHENTICATION CHAP
+EXIT
+USERNAME R_2 PASSWORD CISCO
+EXIT
+###################################################################
+ROUTER_2 PPP
 
+CONFIGURE TERMINAL
+INTERFACE SE 0/0/1
+ENCAPSULATION PPP
+PPP AUTHENTICATION CHAP
+EXIT
+USERNAME R_1 PASSWORD CISCO
+EXIT
+###################################################################
+ROUTER_2 PPP
+
+CONFIGURE TERMINAL
+INTERFACE SE 0/0/0
+ENCAPSULATION PPP
+PPP AUTHENTICATION CHAP
+EXIT
+USERNAME R_3 PASSWORD CISCO
+EXIT
+######################################################################
+ROUTER_3 PPP
+
+CONFIGURE TERMINAL
+INTERFACE SE 0/0/1
+ENCAPSULATION PPP
+PPP AUTHENTICATION CHAP
+EXIT
+USERNAME R_2 PASSWORD CISCO
+EXIT
+
+#############################################################################################################
+#############################################################################################################
+#############################################################################################################
 
 
 
